@@ -18,3 +18,5 @@
 publish
 **/appversion.h
 **/reapi_version.inc
+**/msvc/*/Debug*
+**/msvc/*/Release*
