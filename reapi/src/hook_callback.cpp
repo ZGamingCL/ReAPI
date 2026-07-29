@@ -1464,6 +1464,16 @@ void CBasePlayer_JoiningThink(IReGameHook_CBasePlayer_JoiningThink *chain, CBase
 	callVoidForward(RG_CBasePlayer_JoiningThink, original, indexOfEdict(pthis->pev));
 }
 
+void CBasePlayer_HandleSignals(IReGameHook_CBasePlayer_HandleSignals *chain, CBasePlayer *pthis)
+{
+	auto original = [chain](int _pthis)
+	{
+		return chain->callNext(getPrivate<CBasePlayer>(_pthis));
+	};
+
+	callVoidForward(RG_CBasePlayer_HandleSignals, original, indexOfEdict(pthis->pev));
+}
+
 void PM_LadderMove_AMXX(IReGameHook_PM_LadderMove *chain, physent_t *pLadder, int playerIndex)
 {
 	auto original = [chain](physent_t *_pLadder, int _playerIndex)

@@ -538,6 +538,7 @@ void CBasePlayer_Observer_FindNextPlayer(IReGameHook_CBasePlayer_Observer_FindNe
 void CBasePlayer_Pain(IReGameHook_CBasePlayer_Pain *chain, CBasePlayer *pthis, int iLastHitGroup, bool bHasArmour);
 void CBasePlayer_DeathSound(IReGameHook_CBasePlayer_DeathSound *chain, CBasePlayer *pthis);
 void CBasePlayer_JoiningThink(IReGameHook_CBasePlayer_JoiningThink *chain, CBasePlayer *pthis);
+void CBasePlayer_HandleSignals(IReGameHook_CBasePlayer_HandleSignals *chain, CBasePlayer *pthis);
 
 // TODO: pending FreeGameRules
 void PM_LadderMove_AMXX(IReGameHook_PM_LadderMove *chain, physent_t *pLadder, int playerIndex);

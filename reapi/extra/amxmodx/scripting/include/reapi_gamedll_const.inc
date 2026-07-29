@@ -958,6 +958,16 @@ enum GamedllFunc_CBasePlayer
 	* Params:           (const this, attacker, Float:flKnockbackForce, Float:flVelModifier)
 	*/
 	RG_CBasePlayer_TakeDamageImpulse,
+
+	/*
+	* Description:      Called to refresh the player's signals (buyzone, bombzone, escapezone, VIP safety zone).
+	*                   Called from CBasePlayer::PreThink at most every 0.5 seconds, and once on spawn.
+	*                   Hook it Pre to override which zones the player is considered to be inside,
+	*                   by writing m_signals via set_member(index, m_signals, signals[UnifiedSignals]).
+	* Return type:      void
+	* Params:           (const this)
+	*/
+	RG_CBasePlayer_HandleSignals,
 };
 
 /**
