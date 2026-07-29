@@ -5,7 +5,6 @@ on:
     branches: [master]
     paths-ignore:
       - '**.md'
-      - '.github/**'
 
   pull_request:
     types: [opened, reopened, synchronize]
@@ -22,6 +21,7 @@ jobs:
       solution: 'msvc/reapi.sln'
       buildPlatform: 'Win32'
       buildRelease: 'Release'
+      HAVE_KEY_PFX: ${{ secrets.KEY_PFX_B64 }}
 
     steps:
       - name: Configure
@@ -120,7 +120,7 @@ jobs:
         shell: "pwsh"
 
       - name: Import PFX and sign
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && env.HAVE_KEY_PFX != ''
         env:
           KEY_PFX_PASS: ${{ secrets.KEY_PFX_PASS }}
         # https://github.com/actions/runner-images/blob/main/images/windows/Windows2025-Readme.md
@@ -144,6 +144,9 @@ jobs:
     container: debian:11-slim
     outputs:
       app-version: ${{ steps.app-version.outputs.version }}
+
+    env:
+      HAVE_KEY_ASC: ${{ secrets.KEY_ASC }}
 
     steps:
       - name: Check dependencies
@@ -206,7 +209,7 @@ jobs:
           #export for global use
           echo "GPG_LINUX_FINGERPRINT=$GPG_LINUX_FINGERPRINT" >> $GITHUB_ENV
         shell: bash
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && env.HAVE_KEY_ASC != ''
 
       - name: Build
         run: |
